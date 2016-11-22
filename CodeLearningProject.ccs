@@ -1,0 +1,29 @@
+<Solution>
+  <PropertyGroup Name="CodeLearningProject" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="Sprites">
+          <Image Name="indexer.png" />
+          <Image Name="jmpLeft.png" />
+          <Image Name="jmpLeftDouble.png" />
+          <Image Name="jmpRight.png" />
+          <Image Name="jmpRightDouble.png" />
+          <Image Name="left.png" />
+          <Image Name="play.png" />
+          <Image Name="return.png" />
+          <Image Name="right.png" />
+          <Image Name="robot1.png" />
+          <Image Name="robot2.png" />
+          <Image Name="robotJump.png" />
+          <Image Name="sun.png" />
+          <Image Name="up.png" />
+        </Folder>
+        <Image Name="bg.png" />
+        <Image Name="HelloWorld.png" />
+        <TTF Name="KenPixel Mini Square.ttf" />
+        <Project Name="MainScene.csd" Type="Scene" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
