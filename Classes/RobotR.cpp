@@ -35,7 +35,7 @@ void RobotR::RunAnimation()
 }
 bool RobotR::Jump(Directions direction)///////////////////////////////////JUMP
 {
-	switch (direction)
+    switch (direction)
 	{
 	case Directions::Up:////////////Jump UP
 	{
@@ -48,7 +48,9 @@ bool RobotR::Jump(Directions direction)///////////////////////////////////JUMP
 			{
 				spriteUNMANAGED->setTexture("sprites/robot1.png");
 			}, 1.f, "backToOriginalFrame");
+            return true;
 		}
+        return false;
 	}
 		break;
 	case Directions::DoubleUp:////////Jump DOUBLE UP

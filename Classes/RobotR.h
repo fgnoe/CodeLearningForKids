@@ -27,16 +27,22 @@ class RobotR
 public:
 	RobotR() {}
 	RobotR(Node* rootNode, int mp[10][8]);
+    
 	ParticleSystemQuad* particleSystem;
 	Sprite* sprite;
 	Node* rootNode;
 	bool Jump(Directions direction);
 	bool Move(Directions direction);
 	Directions orientation;
+    int starX, starY;
 	int y=5,x=2;
 	int map[10][8];
 	int mapSizeX = 8, mapSizeY = 10;
 	int nBlocksFall = 0;
+    bool isForWin(bool isJumping = false)
+    {
+        return x == starX && y == starY + isJumping;
+    }
 private:
 	void RunAnimation();
 	void analizeCells(int mp[10][8])
@@ -50,6 +56,12 @@ private:
 					y = i;
 					mp[i][j] = 0;
 				}
+                if(mp[i][j] == 3)
+                {
+                    starX = j;
+                    starY = i;
+                    mp[i][j] = 0;
+                }
 				map[i][j] = mp[i][j];
 			}
 	}

@@ -12,9 +12,20 @@ Sprite* indexer;
 RobotR robot;
 int countForAnim = 0;
 bool editing = true;
+Node* rootNodeUNMANAGED;
 ui::Layout* panelTools;
 ui::Layout* panelWork;
 Vector<ui::Button*> botones;
+void winGame()
+{
+    Sprite* star = (Sprite*)rootNodeUNMANAGED->getChildByName("star");
+    DelayTime* time = DelayTime::create(0.4f);
+    ScaleBy* big = ScaleBy::create(0.4f, 3.f);
+    ScaleBy* small = ScaleBy::create(0.4f, 0.f);
+    Sequence* sec = Sequence::create(time,big,small, NULL);
+    
+    star->runAction(sec);
+}
 void updateButtons()
 {
 	for (int i = 0; i < botones.size(); i++)
@@ -60,10 +71,11 @@ bool GameScene::init()
     }
     
     auto rootNode = CSLoader::createNode("res/MainScene.csb");
+    rootNodeUNMANAGED = rootNode;
 
     addChild(rootNode);
-	map = MapR(rootNode, levels[1]);
-	robot = RobotR(rootNode,levels[1]);
+	map = MapR(rootNode, levels[0]);
+	robot = RobotR(rootNode,levels[0]);
 	
 	rootNode->getChildByName("bg")->setGlobalZOrder(-100000);
 	
@@ -253,6 +265,8 @@ bool GameScene::init()
 						break;
 					case ButtonTypes::UpB:
 						robot.Jump(Directions::Up);
+                            if(robot.isForWin(true))
+                                winGame();
 						break;
 					case ButtonTypes::JumpRightB:
 						robot.Jump(Directions::Right);
@@ -275,17 +289,19 @@ bool GameScene::init()
 					indexer->runAction(ease);
 					indexer->setOpacity(255);
 					
+                    if(robot.isForWin())
+                        winGame();
 					countForAnim++;
 				}, 1.5f, botones.size()-1.0, 0.f, "anims");
 			}
 		}
 	});
-    
     //RELOAD BUTTON
     reloadBtn->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
     {
         if (type == ui::Widget::TouchEventType::ENDED)
         {
+            rootNodeUNMANAGED->getParent()->stopAllActions();
             botones.clear();
             editing = true;
             countForAnim = 0;
@@ -296,5 +312,4 @@ bool GameScene::init()
     });
     return true;
 }
-
 

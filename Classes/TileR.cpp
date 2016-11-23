@@ -11,7 +11,9 @@ TileR::TileR(Node* rootNode, TileType typ, float x, float y)
 		break;
 	case Star:
 		sprite = Sprite::create("sprites/star.png");
+        sprite->setName("star");
 		sprite->setRotation(-15.f);
+            sprite->setGlobalZOrder(3.f);
 		break;
 	default:
 		sprite = Sprite::create();
