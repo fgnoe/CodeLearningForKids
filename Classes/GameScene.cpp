@@ -339,6 +339,9 @@ bool GameScene::init()
     {
         if (type == ui::Widget::TouchEventType::ENDED)
         {
+            robot.sprite->stopAllActions();
+            rootNodeUNMANAGED->stopAllActions();
+            panelWork->unscheduleAllCallbacks();
             rootNodeUNMANAGED->getParent()->stopAllActions();
             botones.clear();
             editing = true;
