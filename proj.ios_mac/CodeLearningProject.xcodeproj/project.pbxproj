@@ -58,6 +58,8 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		B6088B091DE6C53D002A6E2D /* LevelSelection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6088B071DE6C53D002A6E2D /* LevelSelection.cpp */; };
+		B6088B0A1DE6C53D002A6E2D /* LevelSelection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6088B071DE6C53D002A6E2D /* LevelSelection.cpp */; };
 		B6B4ACE01DE3906B00316C24 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6B4ACD81DE3906B00316C24 /* GameScene.cpp */; };
 		B6B4ACE11DE3906B00316C24 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6B4ACD81DE3906B00316C24 /* GameScene.cpp */; };
 		B6B4ACE21DE3906B00316C24 /* MapR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6B4ACDA1DE3906B00316C24 /* MapR.cpp */; };
@@ -164,6 +166,8 @@
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B6088B071DE6C53D002A6E2D /* LevelSelection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelSelection.cpp; sourceTree = "<group>"; };
+		B6088B081DE6C53D002A6E2D /* LevelSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelSelection.h; sourceTree = "<group>"; };
 		B6B4ACD81DE3906B00316C24 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
 		B6B4ACD91DE3906B00316C24 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		B6B4ACDA1DE3906B00316C24 /* MapR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapR.cpp; sourceTree = "<group>"; };
@@ -321,6 +325,8 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B6088B071DE6C53D002A6E2D /* LevelSelection.cpp */,
+				B6088B081DE6C53D002A6E2D /* LevelSelection.h */,
 				B6B4ACD81DE3906B00316C24 /* GameScene.cpp */,
 				B6B4ACD91DE3906B00316C24 /* GameScene.h */,
 				B6B4ACDA1DE3906B00316C24 /* MapR.cpp */,
@@ -531,6 +537,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6B4ACE41DE3906B00316C24 /* RobotR.cpp in Sources */,
+				B6088B091DE6C53D002A6E2D /* LevelSelection.cpp in Sources */,
 				B6B4ACE01DE3906B00316C24 /* GameScene.cpp in Sources */,
 				B6B4ACE61DE3906B00316C24 /* TileR.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
@@ -547,6 +554,7 @@
 			files = (
 				B6B4ACE71DE3906B00316C24 /* TileR.cpp in Sources */,
 				B6B4ACE51DE3906B00316C24 /* RobotR.cpp in Sources */,
+				B6088B0A1DE6C53D002A6E2D /* LevelSelection.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				B6B4ACE31DE3906B00316C24 /* MapR.cpp in Sources */,
 				B6B4ACE11DE3906B00316C24 /* GameScene.cpp in Sources */,

@@ -100,7 +100,7 @@ bool RobotR::Jump(Directions direction)///////////////////////////////////JUMP
                 sprite->runAction(RotateBy::create(0.3f, Vec3(0, 180, 0)));
                 orientation = Directions::Right;
             }
-            float tiem = ((nBlocksFall - y - 1)/7.0f * 1.4f);
+            float tiem = ((nBlocksFall - y - 1)/7.0f * 1.f)+0.4f;
             JumpBy* fall = JumpBy::create(tiem, Vec2(80,-80*(nBlocksFall - y - 1)), 80, 1);
             sprite->runAction(fall);
             y += nBlocksFall - y - 1;
@@ -143,7 +143,7 @@ bool RobotR::Jump(Directions direction)///////////////////////////////////JUMP
                 spriteUNMANAGED->runAction(RotateTo::create(0.3f, Vec3(0, -180, 0)));
                 orientation = Directions::Left;
             }
-            float tiem = ((nBlocksFall - y - 1)/7.0f * 1.4f);
+            float tiem = ((nBlocksFall - y - 1)/7.0f * 1.f)+0.4f;
             JumpBy* fall = JumpBy::create(tiem, Vec2(-80,-80*(nBlocksFall - y - 1)), 80, 1);
             sprite->runAction(fall);
             y += nBlocksFall - y - 1;
@@ -307,7 +307,7 @@ bool RobotR::Jump(Directions direction)///////////////////////////////////JUMP
     }
         break;
     case Directions::DoubleLeft:///////Jump double left
-        switch (canDoubleJumpLeft())
+    switch (canDoubleJumpLeft())
     {
         case Movements::Ok:
         {

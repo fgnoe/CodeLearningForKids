@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "LevelSelection.h"
 
 
 
@@ -12,6 +13,7 @@ Sprite* indexer;
 RobotR robot;
 int countForAnim = 0;
 bool editing = true;
+bool finished = false;
 Node* rootNodeUNMANAGED;
 ui::Layout* panelTools;
 ui::Layout* panelWork;
@@ -23,11 +25,24 @@ void winGame()
     ScaleBy* big = ScaleBy::create(0.4f, 3.f);
     ScaleBy* small = ScaleBy::create(0.4f, 0.f);
     Sequence* sec = Sequence::create(time,big,small, NULL);
-    
     star->runAction(sec);
+    panelWork->unschedule("anims");
+    finished = true;
+    //Change scene
+    panelWork->scheduleOnce([=](float dt)
+    {
+        
+        rootNodeUNMANAGED->getParent()->stopAllActions();
+        botones.clear();
+        editing = true;
+        countForAnim = 0;
+        Scene* escena = LevelSelection::createScene();
+        Director::getInstance()->replaceScene(TransitionFadeBL::create(0.5f, escena));
+    }, 1.f, "chan");
 }
 void updateButtons()
 {
+    
 	for (int i = 0; i < botones.size(); i++)
 	{
 		if (botones.at(i)->getTag() == (int)ButtonTypes::Delete)
@@ -43,6 +58,7 @@ void updateButtons()
 			//botones.at(i)->setPosition(Vec2(btnPosX, btnPosY));
 			//RELOCATION TEST
 			MoveTo* move = MoveTo::create(0.125f, Vec2(btnPosX, btnPosY));
+            botones.at(i)->stopAllActions();
 			botones.at(i)->runAction(move);
 		}
 	}
@@ -69,17 +85,35 @@ bool GameScene::init()
     {
         return false;
     }
+    finished = false;
+    botones.clear();
+    editing = true;
+    countForAnim = 0;
     
     auto rootNode = CSLoader::createNode("res/MainScene.csb");
     rootNodeUNMANAGED = rootNode;
 
     addChild(rootNode);
-	map = MapR(rootNode, levels[0]);
-	robot = RobotR(rootNode,levels[0]);
+    
+    int lev = UserDefault::getInstance()->getIntegerForKey("lvl");
+    
+	map = MapR(rootNode, levels[lev]);
+	robot = RobotR(rootNode,levels[lev]);
 	
 	rootNode->getChildByName("bg")->setGlobalZOrder(-100000);
 	
 
+    //Home button
+    ui::Button* home = (ui::Button*)rootNode->getChildByName("home");
+    home->setGlobalZOrder(5.f);
+    home->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
+    {
+        if (type == ui::Widget::TouchEventType::ENDED)
+        {
+            Scene* escena = LevelSelection::createScene();
+            Director::getInstance()->replaceScene(TransitionFadeBL::create(0.2f, escena));
+        }
+    });
 	//Button config
 	panelTools = (ui::Layout*)rootNode->getChildByName("panelTools");
 	panelWork = (ui::Layout*)rootNode->getChildByName("panelWork");
@@ -112,7 +146,7 @@ bool GameScene::init()
 			panelWork->addChild(btnA);
 			btnA->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
 			{
-				if (type == ui::Widget::TouchEventType::ENDED)
+				if (type == ui::Widget::TouchEventType::ENDED && editing)
 				{
 					((Node*)sender)->setTag((int)ButtonTypes::Delete);
 					updateButtons();
@@ -124,7 +158,7 @@ bool GameScene::init()
 	//LEFT BUTTON
 	leftBtn->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
 	{
-		if (type == ui::Widget::TouchEventType::ENDED && botones.size() < 16)
+		if (type == ui::Widget::TouchEventType::ENDED && botones.size() < 16 && editing )
 		{
 			ui::Button* btnA = ui::Button::create("res/Sprites/left.png", "res/Sprites/left.png");
 			btnA->setTag(ButtonTypes::LeftB);
@@ -132,7 +166,7 @@ bool GameScene::init()
 			panelWork->addChild(btnA);
 			btnA->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
 			{
-				if (type == ui::Widget::TouchEventType::ENDED)
+				if (type == ui::Widget::TouchEventType::ENDED && editing)
 				{
 					((Node*)sender)->setTag((int)ButtonTypes::Delete);
 					updateButtons();
@@ -152,7 +186,7 @@ bool GameScene::init()
 			panelWork->addChild(btnA);
 			btnA->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
 			{
-				if (type == ui::Widget::TouchEventType::ENDED)
+				if (type == ui::Widget::TouchEventType::ENDED && editing)
 				{
 					((Node*)sender)->setTag((int)ButtonTypes::Delete);
 					updateButtons();
@@ -172,7 +206,7 @@ bool GameScene::init()
 			panelWork->addChild(btnA);
 			btnA->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
 			{
-				if (type == ui::Widget::TouchEventType::ENDED)
+				if (type == ui::Widget::TouchEventType::ENDED && editing)
 				{
 					((Node*)sender)->setTag((int)ButtonTypes::Delete);
 					updateButtons();
@@ -193,7 +227,7 @@ bool GameScene::init()
 			panelWork->addChild(btnA);
 			btnA->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
 			{
-				if (type == ui::Widget::TouchEventType::ENDED)
+				if (type == ui::Widget::TouchEventType::ENDED && editing)
 				{
 					((Node*)sender)->setTag((int)ButtonTypes::Delete);
 					updateButtons();
@@ -214,7 +248,7 @@ bool GameScene::init()
             panelWork->addChild(btnA);
             btnA->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
             {
-                if (type == ui::Widget::TouchEventType::ENDED)
+                if (type == ui::Widget::TouchEventType::ENDED && editing)
                 {
                     ((Node*)sender)->setTag((int)ButtonTypes::Delete);
                         updateButtons();
@@ -235,7 +269,7 @@ bool GameScene::init()
             panelWork->addChild(btnA);
             btnA->addTouchEventListener([](Ref* sender, ui::Widget::TouchEventType type)
             {
-                if (type == ui::Widget::TouchEventType::ENDED)
+                if (type == ui::Widget::TouchEventType::ENDED && editing)
                 {
                     ((Node*)sender)->setTag((int)ButtonTypes::Delete);
                     updateButtons();
@@ -253,45 +287,49 @@ bool GameScene::init()
 			{
 				editing = false;
 				countForAnim = 0;
+                
 				panelWork->schedule([=](float dt)
 				{
-					switch ((ButtonTypes)botones.at(countForAnim)->getTag())
-					{
-					case ButtonTypes::RightB:
-						robot.Move(Directions::Right);
-						break;
-					case ButtonTypes::LeftB:
-						robot.Move(Directions::Left);
-						break;
-					case ButtonTypes::UpB:
-						robot.Jump(Directions::Up);
-                            if(robot.isForWin(true))
-                                winGame();
-						break;
-					case ButtonTypes::JumpRightB:
-						robot.Jump(Directions::Right);
-						break;
-					case ButtonTypes::JumpLeftB:
-						robot.Jump(Directions::Left);
-						break;
-                    case ButtonTypes::JumpDoubleRightB:
-                            robot.Jump(Directions::DoubleRight);
-                        break;
-                    case ButtonTypes::JumpDoubleLeftB:
-                            robot.Jump(Directions::DoubleLeft);
-                        break;
-					}
-					//Moving indexer
-					int indexerPosX = 90 * (countForAnim % 4) + 50;
-					int indexerPosY = -90 * (countForAnim / 4) + 350;
-					MoveTo* move = MoveTo::create(0.25f, Vec2(indexerPosX, indexerPosY));
-					EaseSineInOut* ease = EaseSineInOut::create(move);
-					indexer->runAction(ease);
-					indexer->setOpacity(255);
-					
-                    if(robot.isForWin())
-                        winGame();
-					countForAnim++;
+                    if(!finished)
+                    {
+                        switch ((ButtonTypes)botones.at(countForAnim)->getTag())
+                        {
+                        case ButtonTypes::RightB:
+                            robot.Move(Directions::Right);
+                            break;
+                        case ButtonTypes::LeftB:
+                            robot.Move(Directions::Left);
+                            break;
+                        case ButtonTypes::UpB:
+                            robot.Jump(Directions::Up);
+                                if(robot.isForWin(true))
+                                    winGame();
+                            break;
+                        case ButtonTypes::JumpRightB:
+                            robot.Jump(Directions::Right);
+                            break;
+                        case ButtonTypes::JumpLeftB:
+                            robot.Jump(Directions::Left);
+                            break;
+                        case ButtonTypes::JumpDoubleRightB:
+                                robot.Jump(Directions::DoubleRight);
+                            break;
+                        case ButtonTypes::JumpDoubleLeftB:
+                                robot.Jump(Directions::DoubleLeft);
+                            break;
+                        }
+                        //Moving indexer
+                        int indexerPosX = 90 * (countForAnim % 4) + 50;
+                        int indexerPosY = -90 * (countForAnim / 4) + 350;
+                        MoveTo* move = MoveTo::create(0.25f, Vec2(indexerPosX, indexerPosY));
+                        EaseSineInOut* ease = EaseSineInOut::create(move);
+                        indexer->runAction(ease);
+                        indexer->setOpacity(255);
+                        
+                        if(robot.isForWin())
+                            winGame();
+                        countForAnim++;
+                    }
 				}, 1.5f, botones.size()-1.0, 0.f, "anims");
 			}
 		}

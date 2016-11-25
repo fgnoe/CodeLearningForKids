@@ -4,6 +4,8 @@
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
         <Folder Name="Sprites">
+          <Image Name="cactus_inside.png" />
+          <Image Name="home.png" />
           <Image Name="indexer.png" />
           <Image Name="jmpLeft.png" />
           <Image Name="jmpLeftDouble.png" />
@@ -22,6 +24,7 @@
         <Image Name="bg.png" />
         <Image Name="HelloWorld.png" />
         <TTF Name="KenPixel Mini Square.ttf" />
+        <Project Name="LevelSelection.csd" Type="Scene" />
         <Project Name="MainScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
